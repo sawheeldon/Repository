@@ -27,6 +27,25 @@
     "clean:css:minified": "rm -f build/$npm_package_name.$npm_package_version.min.css build/$npm_package_name.$npm_package_version.min.css.map"
     },
 
+------------Daily back-up your project Cycle (commit changes and synchronize)-----------
+Note: Run the following command inside the repository folder
+
+//prepack the code
+1) git add . ;
+--> means add all the files in that particular folder to be pre-packed for the commit
+2) git commit -m 'Some message for you future self explaining why is this commit important';
+--> means commit is happening only on the local machine (no communication with the server possible); -m stand for a message (it is a message to self about the content of that commit; example: changing the header color)
+
+//send it to the server
+3) git pull origin master;
+--> means download all the code from the server and make sure there are no conflict with your own code
+4) git push --set-upstream origin master;
+--> means synchronise your own code with the server
+
+
+All commands on one line shortcut:
+git add . ; git commit -m 'REPLACE-ME'; git pull origin master; git push --set-upstream origin master
+
 
 
 -------------INDIVIDUAL INSTALLS------------
