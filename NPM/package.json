@@ -1,0 +1,283 @@
+-- -- -- -- -- -- - SHORTCUT TO ALL-- -- -- -- -- --
+
+npm init
+npm install--save jquery
+npm install--save - dev chokidar - cli
+npm install--save - dev less(make index.less file in CSS)
+npm install--save - dev less - plugin - clean - css
+npm install--save - dev webpack(follow commands below after install)
+npm install--save - dev babel - core babel - preset - es2015 babel - loader
+npm install--save - dev uglify - js(follow commands below after install)
+
+package json
+
+    "scripts": {
+        "mkdir": "mkdir -p build",
+        "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js",
+        "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
+        "clean": "rm -rf build",
+        "build:html": "npm run clean:html && cp index.html build/",
+        "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
+        "clean:html": "rm -f build/index.html",
+        "build:css": "npm run build:css:unminified && npm run build:css:minified",
+        "watch:css": "npm run watch:css:unminified & npm run watch:css:minified",
+        "clean:css": "npm run clean:css:unminified && npm run clean:css:minified",
+        "build:css:unminified": "npm run clean:css:unminified && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
+        "watch:css:unminified": "npm run build:css:unminified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:unminified'",
+        "clean:css:unminified": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
+        "build:css:minified": "npm run clean:css:minified && lessc --clean-css --source-map css/index.less build/$npm_package_name.$npm_package_version.min.css",
+        "watch:css:minified": "npm run build:css:minified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:minified'",
+        "clean:css:minified": "rm -f build/$npm_package_name.$npm_package_version.min.css build/$npm_package_name.$npm_package_version.min.css.map",
+        "build:js": "npm run build:js:unminified && npm run build:js:minified",
+        "watch:js": "npm run watch:js:unminified & npm run watch:js:minified",
+        "clean:js": "npm run clean:js:unminified && npm run clean:js:minified",
+        "build:js:unminified": "npm run clean:js:unminified && webpack",
+        "watch:js:unminified": "npm run build:js:unminified && webpack --watch",
+        "clean:js:unminified": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
+        "build:js:minified": "npm run clean:js:minified && webpack --minify",
+        "watch:js:minified": "npm run build:js:minified && webpack --watch --minify",
+        "clean:js:minified": "rm -f build/$npm_package_name.$npm_package_version.min.js build/$npm_package_name.$npm_package_version.min.js.map"
+    },
+
+    -- -- -- -- -- --Daily back - up your project Cycle(commit changes and synchronize) -- -- -- -- -- -
+    Note: Run the following command inside the repository folder
+
+//prepack the code
+1) git add.;
+-- > means add all the files in that particular folder to be pre - packed
+for the commit
+2) git commit - m 'Some message for you future self explaining why is this commit important';
+-- > means commit is happening only on the local machine(no communication with the server possible); - m stand
+for a message(it is a message to self about the content of that commit; example: changing the header color)
+
+//send it to the server
+3) git pull origin master;
+-- > means download all the code from the server and make sure there are no conflict with your own code
+4) git push--set - upstream origin master;
+-- > means synchronise your own code with the server
+
+
+All commands on one line shortcut:
+    git add.;
+git commit - m 'REPLACE-ME';
+git pull origin master;
+git push--set - upstream origin master
+
+
+
+-- -- -- -- -- -- - INDIVIDUAL INSTALLS-- -- -- -- -- --
+
+
+
+-- -- -- -- -- -- --START INSTALL COMMAND
+
+npm init
+
+-- -- -- -- -- -- --INSTALL JQUERY
+
+npm install--save jquery
+
+    * *
+    this can now be used in HTML < script src = "node_modules/jquery/dist/jquery.js" > < /script>
+
+//for the json package Here, the mkdir task creates a directory to put your built files in, and the clean task removes the build directory.
+
+"scripts": {
+    "mkdir": "mkdir -p build",
+    "build": "npm run clean && npm run mkdir && npm run build:html",
+    "clean": "rm -rf build",
+    "build:html": "npm run clean:html && cp index.html build/",
+    "clean:html": "rm -f build/index.html"
+},
+
+
+-- -- -- -- -- -- --INSTALL A WATCH TASK - CHOKIDAR
+
+npm install--save - dev chokidar - cli
+
+    * *
+    "scripts": {
+        "mkdir": "mkdir -p build",
+        "build": "npm run clean && npm run mkdir && npm run build:html",
+        "watch": "npm run watch:html",
+        "clean": "rm -rf build",
+        "build:html": "npm run clean:html && cp index.html build/",
+        "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
+        "clean:html": "rm -f build/index.html"
+    },
+
+    -- -- -- -- -- -- --INSTALL LESS
+
+npm install--save - dev less
+
+Also make index.less file in CSS.
+
+* *
+"scripts": {
+    "mkdir": "mkdir -p build",
+    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css",
+    "watch": "npm run watch:html & npm run watch:css",
+    "clean": "rm -rf build",
+    "build:html": "npm run clean:html && cp index.html build/",
+    "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
+    "clean:html": "rm -f build/index.html",
+    "build:css": "npm run clean:css && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
+    "watch:css": "npm run build:css && chokidar 'css/**/*.less' -c 'npm run build:css'",
+    "clean:css": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map"
+
+},
+
+-- -- -- -- -- -- --INSTALL CLEAN CSS
+
+npm install--save - dev less - plugin - clean - css
+
+    * *
+    "scripts": {
+        "mkdir": "mkdir -p build",
+        "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css",
+        "watch": "npm run watch:html & npm run watch:css",
+        "clean": "rm -rf build",
+        "build:html": "npm run clean:html && cp index.html build/",
+        "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
+        "clean:html": "rm -f build/index.html",
+        "build:css": "npm run build:css:unminified && npm run build:css:minified",
+        "watch:css": "npm run watch:css:unminified & npm run watch:css:minified",
+        "clean:css": "npm run clean:css:unminified && npm run clean:css:minified",
+        "build:css:unminified": "npm run clean:css:unminified && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
+        "watch:css:unminified": "npm run build:css:unminified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:unminified'",
+        "clean:css:unminified": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
+        "build:css:minified": "npm run clean:css:minified && lessc --clean-css --source-map css/index.less build/$npm_package_name.$npm_package_version.min.css",
+        "watch:css:minified": "npm run build:css:minified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:minified'",
+        "clean:css:minified": "rm -f build/$npm_package_name.$npm_package_version.min.css build/$npm_package_name.$npm_package_version.min.css.map"
+    },
+
+    -- -- -- -- -- -- --INSTALL WEBPACK
+
+npm install--save - dev webpack
+
+create webpack.config.js and enter:
+
+    var path = require('path');
+
+var webpack = require('webpack');
+
+var packageData = require('./package.json');
+
+var filename = [packageData.name, packageData.version, 'js'];
+
+module.exports = {
+    entry: path.resolve(__dirname, packageData.main),
+    output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: filename.join('.'),
+    },
+    devtool: 'source-map'
+}
+
+now create a index.js and make sure package JSON point main to js / index.js
+
+add: {
+        "build:js": "npm run clean:js && webpack",
+        "watch:js": "npm run build:js && webpack --watch",
+        "clean:js": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map"
+    },
+
+    replace build and watch: {
+        "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js",
+        "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
+    },
+
+
+    -- -- -- -- -- -- --INSTALL BABEL
+
+npm install--save - dev babel - core babel - preset - es2015 babel - loader
+
+alter webpack.config.js:
+
+    var path = require('path');
+
+var webpack = require('webpack');
+
+var packageData = require('./package.json');
+
+var filename = [packageData.name, packageData.version, 'js'];
+
+module.exports = {
+    entry: path.resolve(__dirname, packageData.main),
+    output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: filename.join('.'),
+    },
+    devtool: 'source-map',
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                loader: 'babel',
+                query: {
+                    presets: ['es2015']
+                }
+            }
+        ]
+    }
+}
+
+
+-- -- -- -- -- -- --INSTALL UGLIFY
+
+npm install--save - dev uglify - js
+
+update webpack.config.js:
+
+    var path = require('path');
+
+var webpack = require('webpack');
+
+var packageData = require('./package.json');
+
+var minify = process.argv.indexOf('--minify') != -1;
+
+var filename = [packageData.name, packageData.version, 'js'];
+var plugins = [];
+
+if (minify) {
+    filename.splice(filename.length - 1, 0, 'min');
+    plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
+
+module.exports = {
+    entry: path.resolve(__dirname, packageData.main),
+    output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: filename.join('.'),
+    },
+    devtool: 'source-map',
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                loader: 'babel',
+                query: {
+                    presets: ['es2015']
+                }
+            }
+        ]
+    },
+    plugins: plugins
+}
+
+
+UPDATE package.json {
+    "build:js": "npm run build:js:unminified && npm run build:js:minified",
+    "watch:js": "npm run watch:js:unminified & npm run watch:js:minified",
+    "clean:js": "npm run clean:js:unminified && npm run clean:js:minified",
+    "build:js:unminified": "npm run clean:js:unminified && webpack",
+    "watch:js:unminified": "npm run build:js:unminified && webpack --watch",
+    "clean:js:unminified": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
+    "build:js:minified": "npm run clean:js:minified && webpack --minify",
+    "watch:js:minified": "npm run build:js:minified && webpack --watch --minify",
+    "clean:js:minified": "rm -f build/$npm_package_name.$npm_package_version.min.js build/$npm_package_name.$npm_package_version.min.js.map"
+
+},
