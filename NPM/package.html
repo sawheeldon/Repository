@@ -3,9 +3,9 @@
 npm init
 npm install--save jquery
 npm install--save - dev chokidar - cli
-npm install--save - dev less(make index.less file in CSS)
-npm install--save - dev less - plugin - clean - css
-npm install--save - dev webpack(follow commands below after install)
+npm install--save-dev less(make index.less file in CSS)
+npm install--save-dev less-plugin-clean-css
+npm install --save-dev webpack (follow commands below after install)
 npm install--save - dev babel - core babel - preset - es2015 babel - loader
 npm install--save - dev uglify - js(follow commands below after install)
 
@@ -281,3 +281,14 @@ UPDATE package.json {
     "clean:js:minified": "rm -f build/$npm_package_name.$npm_package_version.min.js build/$npm_package_name.$npm_package_version.min.js.map"
 
 },
+
+-- -- -- -- -- -- --Shatter.js
+
+bower install
+grunt build
+
+in js create a new object to Shatter
+
+var image = new Image();
+image.src = "aPictureOfSomethingCool.png";
+var shattered = new Shatter(image, 10);
