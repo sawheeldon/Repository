@@ -18,15 +18,52 @@ CSS reset (all the browsers will see the website in the same by setting every ta
 
 body {
     text-align: center;
+    font-family: arial;
+    font-size: 20px;
+    background-color: lightslategray
+}
+
+h1 {
+    font-size: 50px;
+}
+
+h2 {
+    font-size: 30px
+}
+
+#topHeader,
+#secondHeader {
+    background-color: darkcyan
 }
 
 #test-button-2 {
     width: 100%;
-    float: right;
     height: 50px;
     background-color: aqua;
+    font-family: arial;
+    font-size: 20px;
 }
 
 #test-button-2:hover {
-    background-color: aliceblue;
+    background-color: palevioletred;
+}
+
+#test-button-3 {
+    width: 30%;
+    height: 80px;
+    background-color: darkred;
+    color: white;
+    font-size: 20px;
+}
+
+#test-button-4 {
+    width: 20%;
+    height: 30px;
+    background-color: darkseagreen;
+    color: white;
+    font-size: 10px;
+}
+
+#buttons {
+    padding: 10px
 }

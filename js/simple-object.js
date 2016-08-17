@@ -1,23 +1,23 @@
-var human = {
-    type: "man",
-    age: "50",
-    skinColor: "white",
-    eyeColor: "blue"
+var log = {
+    s1: "You",
+    s2: "are",
+    s3: "awesome",
+    s4: "blue"
 };
 
 
-var humanName = function () {
+var logName = function () {
     var button = document.getElementById("test-button");
 
     button.onclick = function () {
-        alert(human.type);
-        alert(human.age);
-        alert(human.skinColor);
+        alert(log.s1);
+        alert(log.s2);
+        alert(log.s3);
     }
 };
 
 $(document).ready(function () {
 
-    humanName();
+    logName();
 
 });
