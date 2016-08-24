@@ -13,10 +13,10 @@ function hiddenText() {
     $("#test-button-2").click(function () {
         //alert("Working ?");
         $("p").toggle(1);
-        $("#test-button-2").text("Wow you actually click me!");
+        $("#test-button-2").text("Wow you actually clicked me!");
         window.setTimeout(function () {
             $("#test-button-2").html("Button Two (Press Me) !!");
-        }, 5000);
+        }, 2100);
     });
 }
 
