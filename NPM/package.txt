@@ -58,10 +58,7 @@ for a message(it is a message to self about the content of that commit; example:
 
 
 All commands on one line shortcut:
-    git add.;
-git commit - m 'REPLACE-ME';
-git pull origin master;
-git push--set - upstream origin master
+    git add.; git commit - m 'REPLACE-ME'; git pull origin master; git push--set - upstream origin master
 
 
 
