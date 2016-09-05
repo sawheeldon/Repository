@@ -1,309 +1,615 @@
 -- -- -- -- -- -- - SHORTCUT TO ALL-- -- -- -- -- --
 
-npm init
-npm install --save jquery
-npm install --save - dev chokidar - cli
-npm install --save-dev less(make index.less file in CSS)
-npm install --save-dev less-plugin-clean-css
-npm install --save-dev webpack (follow commands below after install)
-npm install --save - dev babel - core babel - preset - es2015 babel - loader
-npm install --save - dev uglify - js(follow commands below after install)
-
-package json
-
-    "scripts": {
-        "mkdir": "mkdir -p build",
-        "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js",
-        "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
-        "clean": "rm -rf build",
-        "build:html": "npm run clean:html && cp index.html build/",
-        "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
-        "clean:html": "rm -f build/index.html",
-        "build:css": "npm run build:css:unminified && npm run build:css:minified",
-        "watch:css": "npm run watch:css:unminified & npm run watch:css:minified",
-        "clean:css": "npm run clean:css:unminified && npm run clean:css:minified",
-        "build:css:unminified": "npm run clean:css:unminified && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
-        "watch:css:unminified": "npm run build:css:unminified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:unminified'",
-        "clean:css:unminified": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
-        "build:css:minified": "npm run clean:css:minified && lessc --clean-css --source-map css/index.less build/$npm_package_name.$npm_package_version.min.css",
-        "watch:css:minified": "npm run build:css:minified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:minified'",
-        "clean:css:minified": "rm -f build/$npm_package_name.$npm_package_version.min.css build/$npm_package_name.$npm_package_version.min.css.map",
-        "build:js": "npm run build:js:unminified && npm run build:js:minified",
-        "watch:js": "npm run watch:js:unminified & npm run watch:js:minified",
-        "clean:js": "npm run clean:js:unminified && npm run clean:js:minified",
-        "build:js:unminified": "npm run clean:js:unminified && webpack",
-        "watch:js:unminified": "npm run build:js:unminified && webpack --watch",
-        "clean:js:unminified": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
-        "build:js:minified": "npm run clean:js:minified && webpack --minify",
-        "watch:js:minified": "npm run build:js:minified && webpack --watch --minify",
-        "clean:js:minified": "rm -f build/$npm_package_name.$npm_package_version.min.js build/$npm_package_name.$npm_package_version.min.js.map"
-    },
-
-    -- -- -- -- -- --Daily back - up your project Cycle(commit changes and synchronize) -- -- -- -- -- -
-    Note: Run the following command inside the repository folder
-
-//prepack the code
-1) git add.;
--- > means add all the files in that particular folder to be pre - packed
-for the commit
-2) git commit - m 'Some message for you future self explaining why is this commit important';
--- > means commit is happening only on the local machine(no communication with the server possible); - m stand
-for a message(it is a message to self about the content of that commit; example: changing the header color)
-
-//send it to the server
-3) git pull origin master;
--- > means download all the code from the server and make sure there are no conflict with your own code
-4) git push--set - upstream origin master;
--- > means synchronise your own code with the server
+(1) npm init
+(2) npm install --save jquery
+(3) npm i mocha -g  ||  npm install mocha --save
+(4) npm install --save express
+(5) npm install chai chai-http --save-dev
+(6) npm install --save unirest
+(7) npm install --save express body-parser
+(8) heroku login
+(9) sudo apt-get install -y mongodb-org  // after set-up //  npm install --save mongodb
+(10) npm install --save mongoose
+(11) npm install --save-dev chokidar-cli
+(12) npm install --save-dev less
+(13) npm install --save-dev less-plugin-clean-css
+(14) npm install --save-dev webpack
+(15) npm install --save-dev babel-core babel-preset-es2015 babel-loader
+(16) npm install --save-dev uglify-js
+(17) npm install --save socket.io
 
 
-All commands on one line shortcut:
-    git add.; git commit - m 'REPLACE-ME'; git pull origin master; git push--set - upstream origin master
+------------------------------------------------
+
+Package.json scripts:
+
+"mkdir": "mkdir -p build",
+"build": "npm run clean && npm run mkdir && npm run build:html",
+"watch": "npm run watch:html",
+"clean": "rm -rf build",
+"build:html": "npm run clean:html && cp index.html build/",
+"watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
+"clean:html": "rm -f build/index.html",
+"build:css": "npm run build:css:unminified && npm run build:css:minified",
+"watch:css": "npm run watch:css:unminified & npm run watch:css:minified",
+"clean:css": "npm run clean:css:unminified && npm run clean:css:minified",
+"build:css:unminified": "npm run clean:css:unminified && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
+"watch:css:unminified": "npm run build:css:unminified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:unminified'",
+"clean:css:unminified": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
+"build:css:minified": "npm run clean:css:minified && lessc --clean-css --source-map css/index.less build/$npm_package_name.$npm_package_version.min.css",
+"watch:css:minified": "npm run build:css:minified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:minified'",
+"clean:css:minified": "rm -f build/$npm_package_name.$npm_package_version.min.css build/$npm_package_name.$npm_package_version.min.css.map",
+"build:js": "npm run build:js:unminified && npm run build:js:minified",
+"watch:js": "npm run watch:js:unminified & npm run watch:js:minified",
+"clean:js": "npm run clean:js:unminified && npm run clean:js:minified",
+"build:js:unminified": "npm run clean:js:unminified && webpack",
+"watch:js:unminified": "npm run build:js:unminified && webpack --watch",
+"clean:js:unminified": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
+"build:js:minified": "npm run clean:js:minified && webpack --minify",
+"watch:js:minified": "npm run build:js:minified && webpack --watch --minify",
+"clean:js:minified": "rm -f build/$npm_package_name.$npm_package_version.min.js build/$npm_package_name.$npm_package_version.min.js.map",
+
+------------------------------------------------
+
+Saving to gitHub
+
+git add . ; git commit -m 'REPLACE-ME'; git pull origin master; git push --set-upstream origin master
+
+
+------------------------------------------------
+(1) ------------------------------------------------
+------------------------------------------------
+
+$ npm init
+
+This initialises and sets up a package.json file.
 
 
 
--- -- -- -- -- -- - INDIVIDUAL INSTALLS-- -- -- -- -- --
+------------------------------------------------
+(2) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save jquery
 
 
+------------------------------------------------
+(3) ------------------------------------------------
+------------------------------------------------
 
--- -- -- -- -- -- --START INSTALL COMMAND
+$ npm i mocha -g .....Installs mocha
 
-npm init
-
--- -- -- -- -- -- --INSTALL JQUERY
-
-npm install--save jquery
-
-    * *
-    this can now be used in HTML < script src = "node_modules/jquery/dist/jquery.js" > < /script>
-
-//for the json package Here, the mkdir task creates a directory to put your built files in, and the clean task removes the build directory.
-
-"scripts": {
-    "mkdir": "mkdir -p build",
-    "build": "npm run clean && npm run mkdir && npm run build:html",
-    "clean": "rm -rf build",
-    "build:html": "npm run clean:html && cp index.html build/",
-    "clean:html": "rm -f build/index.html"
-},
+command = $ mocha
 
 
--- -- -- -- -- -- --INSTALL A WATCH TASK - CHOKIDAR
+------------------------------------------------
+(4) ------------------------------------------------
+------------------------------------------------
 
-npm install--save - dev chokidar - cli
+$ npm install --save express
 
-    * *
-    "scripts": {
-        "mkdir": "mkdir -p build",
-        "build": "npm run clean && npm run mkdir && npm run build:html",
-        "watch": "npm run watch:html",
-        "clean": "rm -rf build",
-        "build:html": "npm run clean:html && cp index.html build/",
-        "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
-        "clean:html": "rm -f build/index.html"
-    },
+Example of how to use Express:
 
-    -- -- -- -- -- -- --INSTALL LESS
+            var express = require('express');
 
-npm install--save - dev less
+            var app = express();
 
-Also make index.less file in CSS.
+            app.get('/', function(request, response) {
+            response.send("Hello World");
+            });
 
-* *
-"scripts": {
-    "mkdir": "mkdir -p build",
-    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css",
-    "watch": "npm run watch:html & npm run watch:css",
-    "clean": "rm -rf build",
-    "build:html": "npm run clean:html && cp index.html build/",
-    "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
-    "clean:html": "rm -f build/index.html",
-    "build:css": "npm run clean:css && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
-    "watch:css": "npm run build:css && chokidar 'css/**/*.less' -c 'npm run build:css'",
-    "clean:css": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map"
-
-},
-
--- -- -- -- -- -- --INSTALL CLEAN CSS
-
-npm install--save - dev less - plugin - clean - css
-
-    * *
-    "scripts": {
-        "mkdir": "mkdir -p build",
-        "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css",
-        "watch": "npm run watch:html & npm run watch:css",
-        "clean": "rm -rf build",
-        "build:html": "npm run clean:html && cp index.html build/",
-        "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
-        "clean:html": "rm -f build/index.html",
-        "build:css": "npm run build:css:unminified && npm run build:css:minified",
-        "watch:css": "npm run watch:css:unminified & npm run watch:css:minified",
-        "clean:css": "npm run clean:css:unminified && npm run clean:css:minified",
-        "build:css:unminified": "npm run clean:css:unminified && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
-        "watch:css:unminified": "npm run build:css:unminified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:unminified'",
-        "clean:css:unminified": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
-        "build:css:minified": "npm run clean:css:minified && lessc --clean-css --source-map css/index.less build/$npm_package_name.$npm_package_version.min.css",
-        "watch:css:minified": "npm run build:css:minified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:minified'",
-        "clean:css:minified": "rm -f build/$npm_package_name.$npm_package_version.min.css build/$npm_package_name.$npm_package_version.min.css.map"
-    },
-
-    -- -- -- -- -- -- --INSTALL WEBPACK
-
-npm install--save - dev webpack
-
-create webpack.config.js and enter:
-
-    var path = require('path');
-
-var webpack = require('webpack');
-
-var packageData = require('./package.json');
-
-var filename = [packageData.name, packageData.version, 'js'];
-
-module.exports = {
-    entry: path.resolve(__dirname, packageData.main),
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: filename.join('.'),
-    },
-    devtool: 'source-map'
-}
-
-now create a index.js and make sure package JSON point main to js / index.js
-
-add: {
-        "build:js": "npm run clean:js && webpack",
-        "watch:js": "npm run build:js && webpack --watch",
-        "clean:js": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map"
-    },
-
-    replace build and watch: {
-        "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js",
-        "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
-    },
+            app.listen(process.env.PORT || 8080, process.env.IP);
 
 
-    -- -- -- -- -- -- --INSTALL BABEL
+------------------------------------------------
+(5) ------------------------------------------------
+------------------------------------------------
 
-npm install--save - dev babel - core babel - preset - es2015 babel - loader
+$ npm install chai chai-http --save-dev
 
-alter webpack.config.js:
+Example of Chai in use:
 
-    var path = require('path');
+            var chai = require('chai');
+            var chaiHttp = require('chai-http');
+            var server = require('../server.js');
 
-var webpack = require('webpack');
+            var should = chai.should();
+            var app = server.app;
+            var storage = server.storage;
 
-var packageData = require('./package.json');
+            chai.use(chaiHttp);
 
-var filename = [packageData.name, packageData.version, 'js'];
+            describe('Shopping List', function() {
+                it('should list items on GET', function(done) {
+                    chai.request(app)
+                        .get('/items')
+                        .end(function(err, res) {
+                        res.should.have.status(200);
+                        done();
+                });
+            });
 
-module.exports = {
-    entry: path.resolve(__dirname, packageData.main),
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: filename.join('.'),
-    },
-    devtool: 'source-map',
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015']
+            it('should add an item on post');
+            it('should edit an item on put');
+            it('should delete an item on delete');
+            });
+
+            exports.app = app;
+            exports.storage = storage;
+
+
+------------------------------------------------
+(6) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save unirest
+
+Example of Unirest in use:
+
+            var unirest = require('unirest');
+
+            unirest.get('http://www.thinkful.com/').end(function(response) {
+            console.log('Status:', response.statusCode);
+            console.log('Headers: ', response.headers);
+            console.log('Body:', response.body);
+            });
+
+------------------------------------------------
+(7) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save express body-parser
+
+Example of Body Parser in action:
+
+            var bodyParser = require('body-parser');
+            var jsonParser = bodyParser.json();
+
+
+------------------------------------------------
+(8) ------------------------------------------------
+------------------------------------------------
+
+$ heroku login
+
+Example after login:
+
+            Enter your Heroku credentials.
+            Email: frodo@example.com
+            Password:
+            Could not find an existing public key.
+            Would you like to generate one? [Yn]
+            Generating new SSH public key.
+            Uploading ssh public key /Users/frodo/.ssh/id_rsa.pub
+
+$ heroku create
+
+            Creating stark-fog-398... done, stack is cedar
+            http://stark-fog-398.herokuapp.com/ | git@heroku.com:stark-fog-398.git
+            Git remote heroku added
+
+$ git push heroku master
+
+$ heroku ps:scale web=1
+
+            Scaling web processes... done, now running 1
+
+$ heroku open
+
+$ heroku run
+
+------------------------------------------------
+(9) ------------------------------------------------
+------------------------------------------------
+
+$ sudo apt-get install -y mongodb-org
+
+            MongoDB is preinstalled in your workspace.
+            To run MongoDB, run the following below (passing the correct parameters to it).
+            Mongodb data will be stored in the folder data.
+
+$ mkdir data
+$ echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' > mongod
+$ chmod a+x mongod
+
+$ ./mongod
+
+$ npm install --save mongodb
+
+
+OR
+
+$ sudo apt-get install -y mongodb-org
+
+            Create a data directory for your MongoDB data files.
+            We recommend you do so in your workspace directory.
+            This directory will store the data for all of your projects in C9, so be sure not to accidentally delete it in the future.
+
+$ cd ~/workspace
+$ mkdir mongo_data
+
+$ echo 'mongod --bind_ip=$IP --dbpath=/home/ubuntu/workspace/mongo_data --nojournal --rest "$@"' > run_mongod
+$ chmod a+x run_mongod
+
+$ run_mongod
+$ ./run_mongod
+
+EXAMPLE OF:
+
+            var MongoClient = require('mongodb').MongoClient;
+
+            MongoClient.connect('mongodb://localhost/snippets', function(err, db) {
+                if (err) {
+                console.error(err);
+                db.close();
+                return;
+                }
+
+            var collection = db.collection('snippets');
+
+            var create = function(name, content) {
+                        var snippet = {
+                            name: name,
+                            content: content
+                            };
+                            collection.insert(snippet, function(err, result) {
+                            if (err) {
+                            console.error("Could not create snippet", name);
+                            db.close();
+                            return;
+                            }
+                            console.log("Created snippet", name);
+                            db.close();
+                            });
+                        };
+
+
+                        var read = function(name) {
+                            var query = {
+                            name: name
+                            };
+                            collection.findOne(query, function(err, snippet) {
+                            if (!snippet || err) {
+                            console.error("Could not read snippet", name);
+                            db.close();
+                            return;
+                            }
+                            console.log("Read snippet", snippet.name);
+                            console.log(snippet.content);
+                            db.close();
+                            });
+                        };
+
+                        var update = function(name, content) {
+                            var query = {
+                            name: name
+                            };
+
+                            var update = {
+                            $set: {content: content}
+                            };
+
+                            collection.findAndModify(query, null, update, function(err, result) {
+                            var snippet = result.value;
+                            if (!snippet || err) {
+                            console.error("Could not update snippet", name);
+                            db.close();
+                            return;
+                            }
+                            console.log("Updated snippet", snippet.name);
+                            db.close();
+                            });
+                        };
+
+                        var del = function(name, content) {
+                            var query = {
+                            name: name
+                            };
+                            collection.findAndRemove(query, function(err, result) {
+                            var snippet = result.value;
+                            if (!snippet || err) {
+                            console.error("Could not delete snippet", name);
+                            db.close();
+                            return;
+                            }
+                            console.log("Deleted snippet", snippet.name);
+                            db.close();
+                            });
+                        };
+
+                        var main = function() {
+                            if (process.argv[2] == 'create') {
+                            create(process.argv[3], process.argv[4]);
+                            }
+                                else if (process.argv[2] == 'read') {
+                                read(process.argv[3]);
+                                }
+                                else if (process.argv[2] == 'update') {
+                                update(process.argv[3], process.argv[4]);
+                                }
+                                else if (process.argv[2] == 'delete') {
+                                del(process.argv[3]);
+                                }
+                            else {
+                            console.error('Command not recognized');
+                            db.close();
+                            }
+                        };
+
+                main();
+            });
+
+
+------------------------------------------------
+(10) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save mongoose
+
+Example of use:
+
+            var mongoose = require('mongoose');
+            mongoose.connect('mongodb://localhost/');
+
+            mongoose.connection.on('error', function(err) {
+            console.error('Could not connect.  Error:', err);
+            });
+
+            mongoose.connection.once('open', function() {
+            var snippetSchema = mongoose.Schema({
+            name: {type: String, unique: true},
+            content: String
+            });
+
+            var Snippet = mongoose.model('Snippet', snippetSchema);
+            });
+
+Make the process more simple from MongoDB above:
+
+            var create = function(name, content) {
+                    var snippet = {
+                    name: name,
+                    content: content
+                    };
+                    Snippet.create(snippet, function(err, snippet) {
+                        if (err || !snippet) {
+                            console.error("Could not create snippet", name);
+                            mongoose.disconnect();
+                            return;
+                            }
+                        console.log("Created snippet", snippet.name);
+                        mongoose.disconnect();
+                    });
+            };
+
+            var read = function(name) {
+                    Snippet.findOne({name: name}, function(err, snippet) {
+                        if (err || !snippet) {
+                            console.error("Could not read snippet", name);
+                            mongoose.disconnect();
+                            return;
+                            }
+                        console.log("Read snippet", snippet.name);
+                        console.log(snippet.content);
+                        mongoose.disconnect();
+                    });
+            };
+
+            var update = function(name, content) {
+                    Snippet.findOneAndUpdate({name: name}, {content: content}, function(err, snippet) {
+                        if (err || !snippet) {
+                            console.error("Could not update snippet", name);
+                            mongoose.disconnect();
+                            return;
+                            }
+                        console.log("Updated snippet", snippet.name);
+                        mongoose.disconnect();
+                    });
+            };
+
+            var del = function(name, content) {
+                    Snippet.findOneAndRemove({name: name}, function(err, snippet) {
+                        if (err || !snippet) {
+                            console.error("Could not delete snippet", name);
+                            mongoose.disconnect();
+                            return;
+                            }
+                        console.log("Deleted snippet", snippet.name);
+                        mongoose.disconnect();
+                    });
+            };
+
+------------------------------------------------
+(11) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save-dev chokidar-cli
+
+Example of:
+
+            "scripts": {
+            "mkdir": "mkdir -p build",
+            "build": "npm run clean && npm run mkdir && npm run build:html",
+            "watch": "npm run watch:html",
+            "clean": "rm -rf build",
+            "build:html": "npm run clean:html && cp index.html build/",
+            "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
+            "clean:html": "rm -f build/index.html"
+            },
+
+$ npm run watch
+
+
+------------------------------------------------
+(12) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save-dev less
+
+Example of:
+
+            "build:css": "npm run clean:css && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
+            "watch:css": "npm run build:css && chokidar 'css/**/*.less' -c 'npm run build:css'",
+            "clean:css": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
+
+
+------------------------------------------------
+(13) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save-dev less-plugin-clean-css
+
+Example of:
+
+            "build:css": "npm run build:css:unminified && npm run build:css:minified",
+            "watch:css": "npm run watch:css:unminified & npm run watch:css:minified",
+            "clean:css": "npm run clean:css:unminified && npm run clean:css:minified",
+            "build:css:unminified": "npm run clean:css:unminified && lessc --source-map css/index.less build/$npm_package_name.$npm_package_version.css",
+            "watch:css:unminified": "npm run build:css:unminified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:unminified'",
+            "clean:css:unminified": "rm -f build/$npm_package_name.$npm_package_version.css build/$npm_package_name.$npm_package_version.css.map",
+            "build:css:minified": "npm run clean:css:minified && lessc --clean-css --source-map css/index.less build/$npm_package_name.$npm_package_version.min.css",
+            "watch:css:minified": "npm run build:css:minified && chokidar 'css/**/*.(css|less)' -c 'npm run build:css:minified'",
+            "clean:css:minified": "rm -f build/$npm_package_name.$npm_package_version.min.css build/$npm_package_name.$npm_package_version.min.css.map"
+
+
+------------------------------------------------
+(14) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save-dev webpack
+
+Example of:
+
+            var path = require('path');
+
+            var webpack = require('webpack');
+
+            var packageData = require('./package.json');
+
+            var filename = [packageData.name, packageData.version, 'js'];
+
+            module.exports = {
+            entry: path.resolve(__dirname, packageData.main),
+            output: {
+            path: path.resolve(__dirname, 'build'),
+            filename: filename.join('.'),
+            },
+            devtool: 'source-map'
+            }
+
+
+------------------------------------------------
+(15) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save-dev babel-core babel-preset-es2015 babel-loader
+
+Example of:
+
+            var path = require('path');
+
+            var webpack = require('webpack');
+
+            var packageData = require('./package.json');
+
+            var filename = [packageData.name, packageData.version, 'js'];
+
+            module.exports = {
+                entry: path.resolve(__dirname, packageData.main),
+                output: {
+                path: path.resolve(__dirname, 'build'),
+                filename: filename.join('.'),
+                },
+            devtool: 'source-map',
+            module: {
+                    loaders: [
+                        {
+                            test: /\.js$/,
+                            exclude: /(node_modules)/,
+                            loader: 'babel',
+                            query: {
+                                presets: ['es2015']
+                            }
+                        }
+                    ]
                 }
             }
-        ]
-    }
-}
 
 
--- -- -- -- -- -- --INSTALL UGLIFY
 
-npm install--save - dev uglify - js
+------------------------------------------------
+(16) ------------------------------------------------
+------------------------------------------------
 
-update webpack.config.js:
+$ npm install --save-dev uglify-js
 
-    var path = require('path');
+Example of:
 
-var webpack = require('webpack');
+            var path = require('path');
 
-var packageData = require('./package.json');
+            var webpack = require('webpack');
 
-var minify = process.argv.indexOf('--minify') != -1;
+            var packageData = require('./package.json');
 
-var filename = [packageData.name, packageData.version, 'js'];
-var plugins = [];
+            var minify = process.argv.indexOf('--minify') != -1;
 
-if (minify) {
-    filename.splice(filename.length - 1, 0, 'min');
-    plugins.push(new webpack.optimize.UglifyJsPlugin());
-}
+            var filename = [packageData.name, packageData.version, 'js'];
+            var plugins = [];
 
-module.exports = {
-    entry: path.resolve(__dirname, packageData.main),
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: filename.join('.'),
-    },
-    devtool: 'source-map',
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015']
-                }
+            if (minify) {
+                filename.splice(filename.length - 1, 0, 'min');
+                plugins.push(new webpack.optimize.UglifyJsPlugin());
             }
-        ]
-    },
-    plugins: plugins
-}
+
+            module.exports = {
+                entry: path.resolve(__dirname, packageData.main),
+                output: {
+                    path: path.resolve(__dirname, 'build'),
+                    filename: filename.join('.'),
+            },
+                devtool: 'source-map',
+                module: {
+                    loaders: [
+                        {
+                            test: /\.js$/,
+                            exclude: /(node_modules)/,
+                            loader: 'babel',
+                            query: {
+                                presets: ['es2015']
+                            }
+                        }
+                    ]
+                },
+                plugins: plugins
+            }
+
+In Package.Json
+
+            "build:js": "npm run build:js:unminified && npm run build:js:minified",
+            "watch:js": "npm run watch:js:unminified & npm run watch:js:minified",
+            "clean:js": "npm run clean:js:unminified && npm run clean:js:minified",
+            "build:js:unminified": "npm run clean:js:unminified && webpack",
+            "watch:js:unminified": "npm run build:js:unminified && webpack --watch",
+            "clean:js:unminified": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
+            "build:js:minified": "npm run clean:js:minified && webpack --minify",
+            "watch:js:minified": "npm run build:js:minified && webpack --watch --minify",
+            "clean:js:minified": "rm -f build/$npm_package_name.$npm_package_version.min.js build/$npm_package_name.$npm_package_version.min.js.map"
+
+------------------------------------------------
+(17) ------------------------------------------------
+------------------------------------------------
+
+$ npm install --save socket.io
+
+Example of:
 
 
-UPDATE package.json {
-    "build:js": "npm run build:js:unminified && npm run build:js:minified",
-    "watch:js": "npm run watch:js:unminified & npm run watch:js:minified",
-    "clean:js": "npm run clean:js:unminified && npm run clean:js:minified",
-    "build:js:unminified": "npm run clean:js:unminified && webpack",
-    "watch:js:unminified": "npm run build:js:unminified && webpack --watch",
-    "clean:js:unminified": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map",
-    "build:js:minified": "npm run clean:js:minified && webpack --minify",
-    "watch:js:minified": "npm run build:js:minified && webpack --watch --minify",
-    "clean:js:minified": "rm -f build/$npm_package_name.$npm_package_version.min.js build/$npm_package_name.$npm_package_version.min.js.map"
 
-},
+------------------------------------------------
+(18) ------------------------------------------------
+------------------------------------------------
 
--- -- -- -- -- -- --Shatter.js
+$
 
-bower install
-grunt build
-
-in js create a new object to Shatter
-
-var image = new Image();
-image.src = "aPictureOfSomethingCool.png";
-var shattered = new Shatter(image, 10);
-
-
-
-        Installing MongoDB on a Cloud9 workspace
-        To install MongoDB in your workspace, you can open a terminal and run the following command:
-
-        sudo apt-get install -y mongodb-org
-        Running MongoDB on a Cloud9 workspace
-        MongoDB is preinstalled in your workspace. To run MongoDB, run the following below (passing the correct parameters to it). Mongodb data will be stored in the folder data.
-
-        $ mkdir data
-        $ echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' > mongod
-        $ chmod a+x mongod
-        You can start mongodb by running the mongod script on your project root:
-
-        $ ./mongod
-
+Example of:
 
