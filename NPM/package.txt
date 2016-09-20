@@ -18,6 +18,7 @@
 (16) npm install --save-dev uglify-js
 (17) npm install --save socket.io
 (18) npm install passport
+(19) npm install --save react react-dom  //if using Babel // npm install --save-dev babel-preset-react
 
 
 ------------------------------------------------
@@ -49,6 +50,22 @@ Package.json scripts:
 "build:js:minified": "npm run clean:js:minified && webpack --minify",
 "watch:js:minified": "npm run build:js:minified && webpack --watch --minify",
 "clean:js:minified": "rm -f build/$npm_package_name.$npm_package_version.min.js build/$npm_package_name.$npm_package_version.min.js.map",
+
+------------------------------------------------
+
+Package.json scripts:
+
+"mkdir": "mkdir -p build",
+"build": "npm run clean && npm run mkdir && npm run build:html && npm run build:js",
+"watch": "npm run watch:html & npm run watch:js",
+"clean": "rm -rf build",
+"build:html": "npm run clean:html && cp index.html build/",
+"watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
+"clean:html": "rm -f build/index.html",
+"build:js": "npm run clean:js && webpack",
+"watch:js": "npm run build:js && webpack --watch",
+"clean:js": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_package_name.$npm_package_version.js.map"
+
 
 ------------------------------------------------
 
@@ -505,7 +522,7 @@ Example of:
 
 $ npm install --save-dev babel-core babel-preset-es2015 babel-loader
 
-Example of:
+Example of your webpack.config.js file:
 
             var path = require('path');
 
@@ -620,7 +637,39 @@ Example of:
 (19) ------------------------------------------------
 ------------------------------------------------
 
-$
+$ npm install --save react react-dom
+$ npm install --save-dev babel-preset-react
+
+Example of webpack.config.js file if react present:
+
+var path = require('path');
+
+var webpack = require('webpack');
+
+var packageData = require('./package.json');
+
+var filename = [packageData.name, packageData.version, 'js'];
+
+              module.exports = {
+                  entry: path.resolve(__dirname, packageData.main),
+                  output: {
+                      path: path.resolve(__dirname, 'build'),
+                      filename: filename.join('.'),
+                  },
+                  devtool: 'source-map',
+                  module: {
+                      loaders: [
+                          {
+                              test: /\.js$/,
+                              exclude: /(node_modules)/,
+                              loader: 'babel',
+                              query: {
+                                  presets: ['es2015', 'react']
+                              }
+                          }
+                      ]
+                  }
+              };
 
 Example of:
 
