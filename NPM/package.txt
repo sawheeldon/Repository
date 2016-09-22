@@ -18,8 +18,8 @@
 (16) npm install --save-dev uglify-js
 (17) npm install --save socket.io
 (18) npm install passport
-(19) npm install --save react react-dom  //if using Babel // npm install --save-dev babel-preset-react
-
+(19) npm install --save react react-dom  //if using Babel // npm install --save-dev babel-preset-react //if using react router // npm install --save react-router
+(20) npm i react react-dom react-router --save  (when you need all three)
 
 ------------------------------------------------
 
@@ -639,6 +639,7 @@ Example of:
 
 $ npm install --save react react-dom
 $ npm install --save-dev babel-preset-react
+$ npm install --save react-router
 
 Example of webpack.config.js file if react present:
 
