@@ -1,8 +1,14 @@
+var react = require('react');
+var react-dom = require('react-dom');
+
 var HelloWorld = React.createClass({
-    render: function() {
-        return <div>
-            Hello World
-            </div>;
+    render() {
+        return(
+          <div>
+            <h1>Hello World<h1>
+            <p>Whats going on?</p>
+          </div>;
+          );
     }
 });
 

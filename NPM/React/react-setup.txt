@@ -1,0 +1,72 @@
+npm init
+
+npm install react react-dom --save
+
+npm install babel webpack webpack-dev-server -g
+
+npm install babel-loader babel-core babel-preset-es2015 babel-preset-react
+
+THEN set up
+
+index.html
+main.js
+app.js
+webpack.config.js
+
+
+***********  webpack.config.js file  ***********
+
+var path = require('path');
+
+var webpack = require('webpack');
+
+var packageData = require('./package.json');
+
+var filename = [packageData.name, packageData.version, 'js'];
+
+              module.exports = {
+                  entry: path.resolve(__dirname, packageData.main),
+                  output: {
+                      path: path.resolve(__dirname, 'build'),
+                      filename: filename.join('.'),
+                  },
+                  devtool: 'source-map',
+                  module: {
+                      loaders: [
+                          {
+                              test: /\.js$/,
+                              exclude: /(node_modules)/,
+                              loader: 'babel',
+                              query: {
+                                  presets: ['es2015', 'react']
+                              }
+                          }
+                      ]
+                  }
+              };
+
+OR USE THIS METHOD
+
+module.exports = {
+  entry: './main.js',
+  output:{
+    path: './',
+    filename: 'index.js'
+},
+  devServer:{
+    inline:true,
+    port:3333
+  },
+  module: {
+    loaders: [
+      {
+        test:/\.js$/,
+        exclude:/node_modules/,
+        loader:'babel',
+        query: {
+          presets: ['es2015', 'react']
+        }
+    }
+    ]
+  }
+}
