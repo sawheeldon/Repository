@@ -6,12 +6,20 @@ npm install babel webpack webpack-dev-server -g
 
 npm install babel-loader babel-core babel-preset-es2015 babel-preset-react
 
+npm install --save redux
+
+npm install --save redux-thunk
+
 THEN set up
 
 index.html
 main.js
 app.js
 webpack.config.js
+
+if polyfill needed
+
+npm install --save isomorphic-fetch
 
 
 ***********  webpack.config.js file  ***********

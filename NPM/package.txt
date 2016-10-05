@@ -20,7 +20,7 @@
 (18) npm install passport
 (19) npm install --save react react-dom  //if using Babel // npm install --save-dev babel-preset-react //if using react router // npm install --save react-router
 (20) npm i react react-dom react-router --save  (when you need all three)
-(21) npm install --save redux
+(21) npm install --save redux // if extending with async in Redux Store // npm install --save redux-thunk
 
 ------------------------------------------------
 
@@ -689,6 +689,8 @@ Example of:
 ------------------------------------------------
 
 $ npm install --save redux
+
+$ npm install --save redux-thunk
 
 Example of:
 
