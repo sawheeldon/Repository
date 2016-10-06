@@ -4,6 +4,7 @@
 //sum is set once no matter what the size of the array and so takes constant time.
 var sum = function(array) {
     var sum = 0;
+    //sum is set once no matter what the size of the array and so takes constant time.
     //i also is totally independent of length of the array and so takes constant time.
     for (var i=0; i<array.length; i++) {
         sum += array[i];
