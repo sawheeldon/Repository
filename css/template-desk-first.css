@@ -53,6 +53,7 @@ place all the mobile tables styles bellow this line
         body {
             color: blue;
         }
+    }
         /*ipad potrait*/
         @media only screen and (max-width: 768px) {
             body {
